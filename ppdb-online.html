@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPDB Online Pesantren Trubus Iman</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdlcJqa4UpqJBgYqbz35hh0QWFQKZFseODA&s');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .header p {
+            color: #34495e;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .steps {
+            margin: 30px 0;
+        }
+
+        .step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .step h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            background-color: #219a52;
+        }
+
+        .payment-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 80px;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #uploadForm {
+            margin-top: 15px;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PPDB Online 2025/2026</h1>
+            <p>Pesantren Trubus Iman</p>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <h3>Langkah 1: Pendaftaran Online</h3>
+                <a href="https://bit.ly/psbtrubusiman2025" target="_blank" class="btn">Daftar Sekarang</a>
+            </div>
+
+            <div class="step">
+                <h3>Langkah 2: Pembayaran Formulir dan Orientasi</h3>
+                <div class="payment-info">
+                    <p>Biaya formulir dan orientasi: Rp300.000</p>
+                    <p>Metode pembayaran:</p>
+                    <p>1. Tunai langsung ke pondok</p>
+                    <p>2. Transfer bank BSI: 7177124359 an. Pesantren Trubus Iman</p>
+                </div>
+                <form id="uploadForm">
+                    <input type="file" id="buktiTransfer" accept="image/*" style="margin-bottom: 15px;">
+                    <img id="imagePreview" alt="Preview bukti transfer">
+                    <button type="submit" class="btn">Kirim Bukti Transfer</button>
+                </form>
+            </div>
+        </div>
+
+            <div class="step">
+        <h3>Info PPDB</h3>
+        <a href="https://i.postimg.cc/XJhmL6Fg/Whats-App-Image-2025-01-02-at-00-14-09.jpg" target="_blank" class="btn">Lihat Info PPDB</a>
+    </div>
+
+        <div id="successMessage" class="success-message">
+            <h3>Terima kasih!</h3>
+            <p>Selamat datang calon santri-santriwati baru 2025/2026 di Pesantren Trubus Iman.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('buktiTransfer');
+            const file = fileInput.files[0];
+            
+            if (file) {
+                // Create preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                    
+                    // Construct WhatsApp URL with image
+                    const whatsappNumber = "6281532920683";
+                    const message = encodeURIComponent("Bukti Pembayaran Formulir dan Orientasi PPDB Pesantren Trubus Iman, nama calon santri . . . lulusan SD/MI di . . .");
+                    
+                    // Open WhatsApp
+                    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+                    
+                    // Show success message
+                    document.getElementById('successMessage').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Preview image before upload
+        document.getElementById('buktiTransfer').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
